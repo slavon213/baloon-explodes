@@ -3,7 +3,8 @@
     /* --bcg-color: #F4F6FF; */
     --bcg-color: #e5e3d4;
     --bcg-color-2: #9abf80;
-    --bcg-color-2-pressed: #698654;
+    /* --bcg-color-2-pressed: #698654; */
+    --bcg-color-2-pressed: #f44336;
     --border-color: #1c325b;
     --border-radius-5: 5px;
     --text-color: #6a669d;
@@ -80,8 +81,8 @@ p {
     background: var(--bcg-color-2);
     border-radius: var(--border-radius-5);
     border: 2px solid var(--border-color);
-
     box-shadow: inset 0px 0px 15px 1px #1c325b71;
+    transition: background 250ms ease;
 }
 .arrow:nth-child(1),
 .arrow:nth-child(3) {
@@ -108,5 +109,6 @@ p {
 }
 
 .pressed {
+    transition: background 50ms ease;
     background: var(--bcg-color-2-pressed);
 }
