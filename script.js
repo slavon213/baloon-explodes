@@ -1,4 +1,7 @@
 const baloon = document.getElementById("baloon");
+const baloonCssSize = getComputedStyle(document.documentElement).getPropertyValue("--baloon-main-size").trim();
+
+const baloonMinSize = parseInt(baloonCssSize) || 56;
 const box = document.querySelector(".box");
 
 const arrowUp = document.querySelector(".arrow.up");
@@ -60,7 +63,9 @@ const increaseSize = function () {
 
 const decreaseSize = function () {
     let decreasePercent = 0.9;
-    baloon.style.fontSize = `${getSize(baloon) * decreasePercent}px`;
+    if (getSize(baloon) >= baloonMinSize) {
+        baloon.style.fontSize = `${getSize(baloon) * decreasePercent}px`;
+    }
 };
 
 const canExpand = function (container, element) {
