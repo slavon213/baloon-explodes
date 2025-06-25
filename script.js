@@ -9,7 +9,6 @@ const arrowDown = document.querySelector(".arrow.down");
 const arrowLeft = document.querySelector(".arrow.left");
 const arrowRight = document.querySelector(".arrow.right");
 
-
 function pressUp(e) {
     switch (e.key) {
         case "ArrowUp":
@@ -30,7 +29,6 @@ function pressUp(e) {
 }
 
 function pressDown(e) {
-    
     switch (e.key) {
         case "ArrowUp":
             arrowUp.classList.remove("pressed");
@@ -77,12 +75,10 @@ const canExpand = function (container, element) {
     const { top: topBox, bottom: bottomBox } = container.getClientRects()[0];
     const { top: topElement, bottom: bottomElement } = element.getClientRects()[0];
     if (topElement > topBox && bottomElement < bottomBox) {
-        // console.log("can expand");
         return true;
     } else {
-        // console.log("ba-bax");
-        removeListeners()
-        return false;
+        removeListeners();
+        explode();
     }
 };
 
@@ -92,7 +88,21 @@ const removeListeners = function () {
     document.body.removeEventListener("keyup", pressDown);
 };
 
-
 const explode = function () {
-    
-}
+    baloon.textContent = "💥";
+    baloon.style.animation = "explode 0.8s ease-out forwards";
+    setTimeout(() => {
+        baloon.remove();
+    }, 800);
+    setTimeout(showFinal, 800);
+};
+
+const showFinal = function () {
+    const para = document.createElement("p");
+    const clown = document.createElement("img");
+
+    para.textContent = "Ну от! Я ж казав!";
+    clown.setAttribute("src", "./images/clown_sad.png");
+    box.appendChild(clown);
+    box.appendChild(para);
+};
