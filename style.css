@@ -99,6 +99,11 @@ p {
     border: 2px solid var(--border-color);
     box-shadow: inset 0px 0px 15px 1px #1c325b71;
     transition: background 250ms ease;
+
+    &:active {
+        transition: background 50ms ease;
+        background: var(--bcg-color-2-pressed);
+    }
 }
 .arrow:nth-child(1),
 .arrow:nth-child(3) {

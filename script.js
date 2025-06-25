@@ -49,9 +49,18 @@ function pressDown(e) {
     }
 }
 
-document.body.addEventListener("keydown", pressUp);
+function clickArrowUp() {
+    increaseSize();
+}
+function clickArrowDown() {
+    decreaseSize();
+}
 
+document.body.addEventListener("keydown", pressUp);
 document.body.addEventListener("keyup", pressDown);
+
+arrowUp.addEventListener("click", clickArrowUp);
+arrowDown.addEventListener("click", clickArrowDown);
 
 const getSize = function (element) {
     return parseInt(window.getComputedStyle(element).fontSize);
@@ -61,6 +70,7 @@ const increaseSize = function () {
     if (canExpand(box, baloon)) {
         let increasePercent = 1.1;
         baloon.style.fontSize = `${getSize(baloon) * increasePercent}px`;
+    } else {
     }
 };
 
@@ -72,20 +82,24 @@ const decreaseSize = function () {
 };
 
 const canExpand = function (container, element) {
-    const { top: topBox, bottom: bottomBox } = container.getClientRects()[0];
-    const { top: topElement, bottom: bottomElement } = element.getClientRects()[0];
-    if (topElement > topBox && bottomElement < bottomBox) {
-        return true;
-    } else {
-        removeListeners();
-        explode();
+    if (container && element) {
+        const { top: topBox, bottom: bottomBox } = container.getClientRects()[0];
+        const { top: topElement, bottom: bottomElement } = element.getClientRects()[0];
+        if (topElement > topBox && bottomElement < bottomBox) {
+            return true;
+        } else {
+            removeListeners();
+            explode();
+            return false;
+        }
     }
 };
 
 const removeListeners = function () {
     document.body.removeEventListener("keydown", pressUp);
-
     document.body.removeEventListener("keyup", pressDown);
+    arrowUp.removeEventListener("click", clickArrowUp);
+    arrowDown.removeEventListener("click", clickArrowDown);
 };
 
 const explode = function () {
