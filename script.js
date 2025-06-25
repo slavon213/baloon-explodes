@@ -9,8 +9,8 @@ const arrowDown = document.querySelector(".arrow.down");
 const arrowLeft = document.querySelector(".arrow.left");
 const arrowRight = document.querySelector(".arrow.right");
 
-document.body.addEventListener("keydown", function (e) {
-    // e.preventDefault()
+
+function pressUp(e) {
     switch (e.key) {
         case "ArrowUp":
             arrowUp.classList.add("pressed");
@@ -27,9 +27,10 @@ document.body.addEventListener("keydown", function (e) {
         default:
             break;
     }
-});
+}
 
-document.body.addEventListener("keyup", function (e) {
+function pressDown(e) {
+    
     switch (e.key) {
         case "ArrowUp":
             arrowUp.classList.remove("pressed");
@@ -48,7 +49,11 @@ document.body.addEventListener("keyup", function (e) {
         default:
             break;
     }
-});
+}
+
+document.body.addEventListener("keydown", pressUp);
+
+document.body.addEventListener("keyup", pressDown);
 
 const getSize = function (element) {
     return parseInt(window.getComputedStyle(element).fontSize);
