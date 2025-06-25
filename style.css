@@ -1,9 +1,6 @@
 :root {
-    /* --bcg-color: #f7f7f7; */
-    /* --bcg-color: #F4F6FF; */
     --bcg-color: #e5e3d4;
     --bcg-color-2: #9abf80;
-    /* --bcg-color-2-pressed: #698654; */
     --bcg-color-2-pressed: #f44336;
     --border-color: #1c325b;
     --border-radius-5: 5px;
@@ -68,6 +65,22 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+
+    &::before {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 40px;
+        background: url("./images/pin.png") center center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        left: 50%;
+        top: -14%;
+        transform: translateX(-50%) rotate(25deg);
+
+    }
 }
 
 .arrows {

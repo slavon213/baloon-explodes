@@ -77,12 +77,22 @@ const canExpand = function (container, element) {
     const { top: topBox, bottom: bottomBox } = container.getClientRects()[0];
     const { top: topElement, bottom: bottomElement } = element.getClientRects()[0];
     if (topElement > topBox && bottomElement < bottomBox) {
-        console.log("can expand");
+        // console.log("can expand");
         return true;
     } else {
-        console.log("ba-bax");
+        // console.log("ba-bax");
+        removeListeners()
         return false;
     }
 };
 
-const explode = function () {};
+const removeListeners = function () {
+    document.body.removeEventListener("keydown", pressUp);
+
+    document.body.removeEventListener("keyup", pressDown);
+};
+
+
+const explode = function () {
+    
+}
