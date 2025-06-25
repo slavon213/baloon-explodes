@@ -9,40 +9,49 @@ const arrowDown = document.querySelector(".arrow.down");
 const arrowLeft = document.querySelector(".arrow.left");
 const arrowRight = document.querySelector(".arrow.right");
 
-function pressUp(e) {
+function addPressed(element) {
+    element.classList.add("pressed");
+}
+
+function removePressed(element) {
+    element.classList.remove("pressed");
+}
+
+function pressDown(e) {
     switch (e.key) {
         case "ArrowUp":
-            arrowUp.classList.add("pressed");
+            addPressed(arrowUp);
+            increaseSizeOrExplode();
             break;
         case "ArrowDown":
-            arrowDown.classList.add("pressed");
+            addPressed(arrowDown);
+            decreaseSize();
             break;
         case "ArrowRight":
-            arrowRight.classList.add("pressed");
+            addPressed(arrowRight);
             break;
         case "ArrowLeft":
-            arrowLeft.classList.add("pressed");
+            addPressed(arrowLeft);
             break;
         default:
             break;
     }
 }
 
-function pressDown(e) {
+function pressUp(e) {
     switch (e.key) {
         case "ArrowUp":
+            removePressed(arrowUp);
             arrowUp.classList.remove("pressed");
-            increaseSize();
             break;
         case "ArrowDown":
-            arrowDown.classList.remove("pressed");
-            decreaseSize();
+            removePressed(arrowDown);
             break;
         case "ArrowRight":
-            arrowRight.classList.remove("pressed");
+            removePressed(arrowRight);
             break;
         case "ArrowLeft":
-            arrowLeft.classList.remove("pressed");
+            removePressed(arrowLeft);
             break;
         default:
             break;
@@ -50,14 +59,14 @@ function pressDown(e) {
 }
 
 function clickArrowUp() {
-    increaseSize();
+    increaseSizeOrExplode();
 }
 function clickArrowDown() {
     decreaseSize();
 }
 
-document.body.addEventListener("keydown", pressUp);
-document.body.addEventListener("keyup", pressDown);
+document.body.addEventListener("keydown", pressDown);
+document.body.addEventListener("keyup", pressUp);
 
 arrowUp.addEventListener("click", clickArrowUp);
 arrowDown.addEventListener("click", clickArrowDown);
@@ -66,11 +75,14 @@ const getSize = function (element) {
     return parseInt(window.getComputedStyle(element).fontSize);
 };
 
-const increaseSize = function () {
+const increaseSizeOrExplode = function () {
     if (canExpand(box, baloon)) {
         let increasePercent = 1.1;
         baloon.style.fontSize = `${getSize(baloon) * increasePercent}px`;
     } else {
+        removeListeners();
+        removePressed(arrowUp);
+        explode();
     }
 };
 
@@ -82,22 +94,19 @@ const decreaseSize = function () {
 };
 
 const canExpand = function (container, element) {
-    if (container && element) {
-        const { top: topBox, bottom: bottomBox } = container.getClientRects()[0];
-        const { top: topElement, bottom: bottomElement } = element.getClientRects()[0];
-        if (topElement > topBox && bottomElement < bottomBox) {
-            return true;
-        } else {
-            removeListeners();
-            explode();
-            return false;
-        }
+    const { top: topElement, bottom: bottomElement } = element.getClientRects()[0];
+    const { top: topBox, bottom: bottomBox } = container.getClientRects()[0];
+
+    if (topElement > topBox && bottomElement < bottomBox) {
+        return true;
+    } else {
+        return false;
     }
 };
 
 const removeListeners = function () {
-    document.body.removeEventListener("keydown", pressUp);
-    document.body.removeEventListener("keyup", pressDown);
+    document.body.removeEventListener("keyup", pressUp);
+    document.body.removeEventListener("keydown", pressDown);
     arrowUp.removeEventListener("click", clickArrowUp);
     arrowDown.removeEventListener("click", clickArrowDown);
 };
