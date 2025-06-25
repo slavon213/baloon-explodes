@@ -94,10 +94,11 @@ const decreaseSize = function () {
 };
 
 const canExpand = function (container, element) {
+    const topOffset = 10;
     const { top: topElement, bottom: bottomElement } = element.getClientRects()[0];
     const { top: topBox, bottom: bottomBox } = container.getClientRects()[0];
 
-    if (topElement > topBox && bottomElement < bottomBox) {
+    if (topElement > topBox + topOffset && bottomElement < bottomBox) {
         return true;
     } else {
         return false;
