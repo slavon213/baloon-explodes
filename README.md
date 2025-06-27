@@ -24,7 +24,7 @@
 
 Зображення сторінки проекту
 
-![Baloon page](../images/baloon_example.png)
+![Baloon page](./images/baloon_example.png)
 
 ## Live Demo
 
